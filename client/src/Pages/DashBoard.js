@@ -2,8 +2,16 @@ import React from "react";
 import Score from "../Components/Score";
 import Side from "../Components/Side";
 import styles from "./DashBoard.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ContentItems from "../Components/ContentItems";
+import { db } from "../api/firebase";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  deleteDoc,
+} from "@firebase/firestore";
 
 const DUMMY_LIST = [
   {
@@ -23,7 +31,7 @@ const DUMMY_LIST = [
           type: "Positive Score",
           value: 700,
         },
-      ]
+      ],
     },
   },
   {
@@ -64,23 +72,33 @@ const DUMMY_LIST = [
           value: 600,
         },
       ],
-      
     },
   },
 ];
 
 const DashBoard = () => {
   const [user, setUser] = useState(0);
-
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      const patientdata = collection(db, "patient");
+      const patientSnapshot = await getDocs(patientdata);
+      // console.log(patientSnapshot.docs);
+      setData((prev) => []);
+      patientSnapshot.docs.map((doc) =>
+        setData((prev) => [...prev, doc.data()])
+      );
+    };
+    getData();
+  }, []);
+  console.log(data);
   return (
     <>
       <div className={styles.container}>
-        <Side patients={DUMMY_LIST} changeUser = {setUser} active={user}/>
+        <Side patients={data} changeUser={setUser} active={user} />
         <div className={styles.l}>
-          <Score currUser={DUMMY_LIST[user]} />
-          <div>
-            <ContentItems />
-          </div>
+          {data.length && <Score currUser={data[user]} />}
+          <div>{data.length && <ContentItems currUser={data[user]} />}</div>
         </div>
       </div>
     </>

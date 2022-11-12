@@ -6,6 +6,7 @@ import SignUpIn from "./Pages/SignUp_In";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
+import PatientInfo from "./Pages/PatientInfo";
 
 function App() {
   const [user, setUser] = useState(false);
@@ -47,6 +48,7 @@ function App() {
           }
           path="/dashboard"
         />
+        <Route path="/patient" element={<PatientInfo />} />
       </Routes>
     </div>
   );

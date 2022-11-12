@@ -18,40 +18,37 @@ const Score = (props) => {
     <div className={styles.container}>
       <h2>Social Score</h2>
       <div className={styles.scores}>
-        {props.currUser.details.score.map((score, index) => {
-          let scoreMapping = [
-            {
-              name: "TSS",
-              value: score.value,
-            },
-            {
-              name: "notTSS",
-              value: 1000 - score.value,
-            },
-          ];
-          return (
-            <div className={styles.each}>
-              <PieChart width={300} height={250}>
-                <Pie
-                  data={scoreMapping}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  label
-                  startAngle={90}
-                  endAngle={450}
-                  activeIndex={0}
-                >
-                  {data02.map((val, ind) => {
-                    return <Cell key={ind} fill={colors[ind + 2 * index]} />;
-                  })}
-                </Pie>
-              </PieChart>
-              <h4>{score.type} </h4>
-            </div>
-          );
-        })}
+        {props.currUser.score && (
+          <div className={styles.each}>
+            <PieChart width={300} height={250}>
+              <Pie
+                data={[
+                  {
+                    name: "TSS",
+                    value: Math.floor(props.currUser.score),
+                  },
+                  {
+                    name: "notTSS",
+                    value: 100 - Math.floor(props.currUser.score),
+                  },
+                ]}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={80}
+                label
+                startAngle={90}
+                endAngle={450}
+                activeIndex={0}
+              >
+                {data02.map((val, ind) => {
+                  return <Cell key={ind} fill={colors[ind]} />;
+                })}
+              </Pie>
+            </PieChart>
+            <h4>Total Social Score </h4>
+          </div>
+        )}
       </div>
     </div>
   );
