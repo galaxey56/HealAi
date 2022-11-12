@@ -18,11 +18,7 @@ export default function SignUpIn() {
     e.preventDefault();
     const auth = getAuth();
     console.log(auth);
-    await signInWithEmailAndPassword(
-      auth,
-      signupForm.email,
-      signupForm.password
-    )
+    await signInWithEmailAndPassword(auth, loginForm.email, loginForm.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
