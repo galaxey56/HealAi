@@ -2,4 +2,8 @@
     display: flex;
     margin: 5px 0;
     padding: 10px;
+    height: fit-content;
+}
+.l{
+    width: 100%;
 }
