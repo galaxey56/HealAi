@@ -1,0 +1,24 @@
+.nav {
+  width: 100%;
+  height: 7vh;
+}
+.nav ul {
+  display: flex;
+  list-style: none;
+}
+.item {
+  margin: 5px;
+  padding: 10px;
+}
+.link {
+  text-decoration: none;
+  color: rgb(0, 0, 0, 0.8);
+  font-size: 1.3rem;
+  padding: 5px;
+  transition: 0.3s ease-out;
+}
+.link:hover {
+  transition: 0.3s ease-out;
+  text-shadow: 0px 0px 30px #020d86;
+  color: #020d86;
+}
